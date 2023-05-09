@@ -16,23 +16,37 @@ struct ChapterSelectionView: View {
     }
     @State private var isExpanded = false
     var body: some View {
-
-            Picker("Select a chapter", selection: $selectedChapter) {
+        
+        VStack {
+            VStack(alignment: .center, spacing: 0) {
                 ForEach(chapters, id: \.rawValue) { chapter in
-                    Text("\(chapter.rawValue) - \(chapter.title)").tag(chapter)
+                    if isExpanded || chapter == selectedChapter {
+                        Button("\(chapter.rawValue) - \(chapter.title)", action: {
+                            let shouldSelectChapter = isExpanded
+                            isExpanded.toggle()
+                            
+                            if shouldSelectChapter {
+                                selectedChapter = chapter
+                            }
+                        })
                         .disabled(!chapter.isEnabled)
+                        .frame(height: height)
+                        
+                        if isExpanded && chapter != chapters.last {
+                            Divider()
+                        }
+                    }
+                    
                 }
             }
-            .foregroundColor(Color(UIColor.label))
-            .pickerStyle(.menu)
-            .padding(8)
-            .background(
-                Color(UIColor.systemGray2)
-                    .opacity(0.3)
-                    .cornerRadius(16)
-                    .blur(radius: 4)
-            )
-            .cornerRadius(16)
+            .fixedSize()
+            .padding(.horizontal, cornerRadius)
+            .padding(.vertical, 8)
+            .background(Material.ultraThinMaterial,
+                        in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+        }
+        .frame(height: height, alignment: .top)
+        .animation(.easeOut, value: isExpanded)
     }
 }
 
