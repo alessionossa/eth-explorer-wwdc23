@@ -12,7 +12,7 @@ struct TutorialView: View {
     var chapters: [Chapter]
     
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             ChapterSelectionView(
                 selectedChapter: $selectedChapter,
                 chapters: chapters
@@ -28,6 +28,7 @@ struct TutorialView: View {
             }
     
         }
+        .animation(.easeInOut, value: selectedChapter)
     }
 }
 

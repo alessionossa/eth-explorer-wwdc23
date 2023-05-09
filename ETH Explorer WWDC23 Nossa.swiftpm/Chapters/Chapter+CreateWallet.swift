@@ -13,42 +13,42 @@ struct CreateWalletTextView: View {
         
     var body: some View {
         ScrollView(showsIndicators: true) {
-            VStack(spacing: 8) {
+            VStack(alignment: .leading, spacing: 8) {
                 Group {
                     Text("To interact with the blockchain, you need to be able to sign messages cryptographically, and to do this you are going to create a cryptographic key. We'll create a cryptographic key and that’s all you actually have to keep in your wallet. In blockchains, in fact, your wallet doesn't store your assets (cryptocurrencies, tokens, NFTs, etc.), but rather a key that proves ownership of them.")
                          
                     Text("To be able to save this key easily, the key of the wallet will be generated using a mnemonic phrase, that is easy for humans to read. So, let’s add our first blocks!")
                     
-                    Button("Insert \"Mnemonic\" block", action: {
-                        insertMnemonicBlock()
-                    })
-                    .disabled(tutorialManager.mnemonicNodeId != nil)
-                    .buttonStyle(.bordered)
-                    .padding()
+                    HStack {
+                        Button("Insert \"Mnemonic\" block", action: {
+                            insertMnemonicBlock()
+                        })
+                        .disabled(tutorialManager.mnemonicNodeId != nil)
+                        .buttonStyle(.borderedProminent)
+                        .padding()
+                    }
+                    .frame(maxWidth: .infinity)
                     
-                    Text("💡 Activate the trigger to generate a new phrase")
-                        .font(.callout)
-                        .padding(6)
-                        .background(Color(UIColor.lightGray).opacity(0.5))
-                        .cornerRadius(8)
+                    
+                    TipText(text: "💡 Activate the trigger to generate a new phrase")
                 }
                 
                 
                 Group {
                     Text("This phrase is used by a hash function (a one-way function that consistently generates the same output from a given input) to create our secret Private Key.")
                     
-                    Button("Insert \"Private Key\" block", action: {
-                        insertPrivateKeyBlock()
-                    })
-                    .disabled(tutorialManager.mnemonicNodeId == nil || tutorialManager.privateKeyNodeId != nil)
-                    .buttonStyle(.bordered)
-                    .padding()
                     
-                    Text("💡 Connect the output of \"Mnemonic\" to the input of \"Private Key\"")
-                        .font(.callout)
-                        .padding(6)
-                        .background(Color(UIColor.lightGray).opacity(0.5))
-                        .cornerRadius(8)
+                    HStack {
+                        Button("Insert \"Private Key\" block", action: {
+                            insertPrivateKeyBlock()
+                        })
+                        .disabled(tutorialManager.mnemonicNodeId == nil || tutorialManager.privateKeyNodeId != nil)
+                        .buttonStyle(.borderedProminent)
+                        .padding()
+                    }
+                    .frame(maxWidth: .infinity)
+                    
+                    TipText(text: "💡 Connect the output of \"Mnemonic\" to the input of \"Private Key\"")
                     
                     Text("From the Private Key, you can derive other necessary components, such as our wallet's public address. But due to some limitation in Swift Playgrounds, it is not possuble to visualize it at the moment.")
                     
@@ -64,26 +64,32 @@ struct CreateWalletTextView: View {
                 }
                 
                 VStack {
-                    Text("❓Do you want to see the result without going through all the steps?")
-                        .font(.callout)
-                    Divider()
-                    Button("Show final solution") {
-                        showFinalSolution()
-                    }.padding(4)
-                }
-                .padding(6)
-                .background(Color(UIColor.lightGray).opacity(0.5))
-                .cornerRadius(8)
+                    VStack {
+                        Text("❓Do you want to see the result without going through all the steps?")
+                            .font(.callout)
+                        Divider()
+                        Button("Show final solution") {
+                            showFinalSolution()
+                        }.padding(4)
+                    }
+                    .padding(6)
+                    .background(Color(UIColor.systemGray5))
+                    .cornerRadius(8)
                 
-                Button("Go to the next chapter") {
-                    tutorialManager.selectedChapter = .signMessage
+                
+                    Button("Go to the next chapter") {
+                        tutorialManager.selectedChapter = .signMessage
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(16)
+                    .buttonStyle(.borderedProminent)
                 }
-                .padding()
-                .background(Color(UIColor.systemMint).opacity(0.5))
-                .cornerRadius(8)
+                .frame(maxWidth: .infinity)
 
 
-            }.padding()
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
         }
     }
     
