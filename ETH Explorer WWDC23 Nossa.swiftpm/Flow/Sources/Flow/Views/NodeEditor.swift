@@ -18,6 +18,8 @@ public struct NodeEditor: View {
 
     /// State for all gestures.
     @GestureState var dragInfo = DragInfo.none
+    
+    @State var backgroundColor: Color
 
     /// Node moved handler closure.
     public typealias NodeMovedHandler = (_ index: NodeId,
@@ -40,10 +42,12 @@ public struct NodeEditor: View {
     ///   - patch: Patch to display.
     ///   - selection: Set of nodes currently selected.
     public init(patch: Patch,
+                backgroundColor: Color = .clear,
                 selection: Binding<Set<NodeId>>,
                 layout: LayoutConstants = LayoutConstants())
     {
         self.patch = patch
+        self._backgroundColor = .init(initialValue: backgroundColor)
         _selection = selection
         self.layout = layout
     }
@@ -64,7 +68,7 @@ public struct NodeEditor: View {
                 ScrollView([.horizontal, .vertical], showsIndicators: true) {
                     ZStack {
                         
-                        Color.clear
+                        self.backgroundColor
                             .frame(width: 2000, height: 2000)
                         
                         Canvas { cx, size in

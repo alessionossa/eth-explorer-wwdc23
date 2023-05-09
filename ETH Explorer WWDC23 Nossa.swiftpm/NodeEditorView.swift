@@ -13,7 +13,9 @@ struct NodeEditorView: View {
 
     var body: some View {
 //        ZStack(alignment: .topTrailing) {
-            NodeEditor(patch: patch, selection: $selection)
+        NodeEditor(patch: patch,
+                   backgroundColor: Color(UIColor.secondarySystemBackground),
+                   selection: $selection)
                 .onWireAdded { wire in
                     print("Added wire: \(wire)")
                 }
