@@ -11,26 +11,43 @@ struct ChapterSelectionView: View {
     @Binding var selectedChapter: Chapter
     var chapters: [Chapter]
     private let height: CGFloat = 40
+    private let verticalPadding: CGFloat = 8
     private var cornerRadius: CGFloat {
         get { height / 2 }
     }
     @State private var isExpanded = false
+    
+    
     var body: some View {
         
         VStack {
             VStack(alignment: .center, spacing: 0) {
                 ForEach(chapters, id: \.rawValue) { chapter in
                     if isExpanded || chapter == selectedChapter {
-                        Button("\(chapter.rawValue) - \(chapter.title)", action: {
-                            let shouldSelectChapter = isExpanded
-                            isExpanded.toggle()
-                            
-                            if shouldSelectChapter {
-                                selectedChapter = chapter
-                            }
-                        })
-                        .disabled(!chapter.isEnabled)
+                        HStack(spacing: 8) {
+                            Text("\(chapter.rawValue) - \(chapter.title)")
+                                .font(
+                                    .system(.title2,
+                                            design: .rounded,
+                                            weight: (chapter == selectedChapter) ? .black : .regular)
+                                )
+                                .opacity(chapter.isEnabled ? 1.0 : 0.5)
+                                .onTapGesture {
+                                    let shouldSelectChapter = isExpanded
+                                    isExpanded.toggle()
+                                    
+                                    if shouldSelectChapter {
+                                        selectedChapter = chapter
+                                    }
+                                }
+
+                            .disabled(!chapter.isEnabled)
                         .frame(height: height)
+                            if !isExpanded {
+                                Image(systemName: "chevron.up.chevron.down")
+                                    .font(.system(.title2))
+                            }
+                        }
                         
                         if isExpanded && chapter != chapters.last {
                             Divider()
@@ -41,11 +58,15 @@ struct ChapterSelectionView: View {
             }
             .fixedSize()
             .padding(.horizontal, cornerRadius)
-            .padding(.vertical, 8)
-            .background(Material.ultraThinMaterial,
-                        in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .padding(.vertical, verticalPadding)
+            .background {
+                if isExpanded {
+                    VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
+                }
+            }
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
         }
-        .frame(height: height, alignment: .top)
+        .frame(height: height + verticalPadding * 2, alignment: .top)
         .animation(.easeOut, value: isExpanded)
     }
 }

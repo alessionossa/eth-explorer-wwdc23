@@ -16,7 +16,9 @@ struct TutorialView: View {
             ChapterSelectionView(
                 selectedChapter: $selectedChapter,
                 chapters: chapters
-            ).zIndex(1)
+            )
+            .padding(8)
+            .zIndex(1)
             
             switch selectedChapter {
             case .createWallet:
