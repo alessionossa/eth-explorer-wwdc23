@@ -5,3 +5,6 @@ Ethereum Explorer is an interactive Swift Playground app that enables users to d
 The entire user interface is crafted with SwiftUI, while the data flow between nodes heavily relies on the Combine Framework. By leveraging Protocols and Generics, the app efficiently shares code across various types of nodes and ports.
 
 This Playground app was developed as a submission for the Swift Student Challenge at WWDC23.
+
+## Demo
+[https://youtu.be/NcZ4TyxE-H4]()
