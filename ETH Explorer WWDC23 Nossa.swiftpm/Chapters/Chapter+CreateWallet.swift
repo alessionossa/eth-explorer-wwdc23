@@ -50,7 +50,7 @@ struct CreateWalletTextView: View {
                     
                     TipText(text: "💡 Connect the output of \"Mnemonic\" to the input of \"Private Key\"")
                     
-                    Text("From the Private Key, you can derive other necessary components, such as our wallet's public address. But due to some limitation in Swift Playgrounds, it is not possuble to visualize it at the moment.")
+                    Text("From the Master Private Key, you can derive other necessary components, such as our wallet's public address. This is done throught complex cryptographic operations. This process is described in BIP32 (Bitcoin Improvement Proposal 39) specification and involves the master private key you just generated and a child index.\nThe child index you use here would depend on the specific Ethereum address you want to generate as per BIP44 specification. For the first address in the first account, you would use the path `m/44'/60'/0'/0/0`. All of this will happen automatically when you connect the **Private Key** node to the **Address** node")
                     
                     HStack {
                         
@@ -63,7 +63,9 @@ struct CreateWalletTextView: View {
                     }
                     .frame(maxWidth: .infinity)
                     
-                    Text("Great job! Now you have everything required to sign a message for the blockchain!")
+                    TipText(text: "💡 Connect the output of \"Private Key\" to the input of \"Address\". Wait for the public address to be generated - it may take a while to complete all the cryptographic operations needed for this task.")
+                    
+                    Text("Great job! Now you have everything required to sign a message for the blockchain and receive assets!")
 
                 }
                 
