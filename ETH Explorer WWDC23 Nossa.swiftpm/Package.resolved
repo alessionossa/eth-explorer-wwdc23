@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "bigint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/attaswift/BigInt",
+      "state" : {
+        "revision" : "0ed110f7555c34ff468e72e1686e59721f2b0da6",
+        "version" : "5.3.0"
+      }
+    },
+    {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "state" : {
+        "revision" : "eee9ad754926c40a0f7e73f152357d37b119b7fa",
+        "version" : "1.7.1"
+      }
+    },
+    {
+      "identity" : "ellipticcurvekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Sajjon/EllipticCurveKit.git",
+      "state" : {
+        "revision" : "9ebdfefe73f97cd9a2b95cd94a093d4aad61d12e",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 2
+}

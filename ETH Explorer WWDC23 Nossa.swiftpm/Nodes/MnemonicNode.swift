@@ -46,7 +46,7 @@ public class MnemonicNode: BaseNode {
                 .filter({ $0 != nil })
                 .sink { [weak self] _ in
                     
-                    let randomMnemonic = Mnemonic().phrase
+                    let randomMnemonic = try? MnemonicGenerator.generateMnemonicPhrase()
                     self?.valueUpdate = ValueUpdate(randomMnemonic)
             }
         }

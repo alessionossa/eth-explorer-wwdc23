@@ -50,9 +50,10 @@ public class PrivateKeyNode: BaseNode {
         
         if let intInput = inputs[0] as? Port<[String]> {
             intInput.$valueUpdate.sink { [weak self] phrase in
-                guard let phraseStrArray = phrase?.value,
-                        let seed = try? Mnemonic(phrase: phraseStrArray).seed
+                guard let phraseStrArray = phrase?.value
                 else { return }
+                
+                let seed = try? MnemonicGenerator.getSeed(phraseStrArray)
                 
                 self?.valueUpdate = ValueUpdate(seed)
             }

@@ -52,12 +52,16 @@ struct CreateWalletTextView: View {
                     
                     Text("From the Private Key, you can derive other necessary components, such as our wallet's public address. But due to some limitation in Swift Playgrounds, it is not possuble to visualize it at the moment.")
                     
-    //                Button("Insert \"Address\" block", action: {
-    //                    insertAddressBlock()
-    //                })
-    //                .disabled(tutorialManager.privateKeyNodeId == nil || tutorialManager.addressNodeId != nil)
-    //                .buttonStyle(.bordered)
-    //                .padding()
+                    HStack {
+                        
+                        Button("Insert \"Address\" block", action: {
+                            insertAddressBlock()
+                        })
+                        .disabled(tutorialManager.privateKeyNodeId == nil || tutorialManager.addressNodeId != nil)
+                        .buttonStyle(.borderedProminent)
+                        .padding()
+                    }
+                    .frame(maxWidth: .infinity)
                     
                     Text("Great job! Now you have everything required to sign a message for the blockchain!")
 
@@ -135,8 +139,8 @@ struct CreateWalletTextView: View {
     }
     
     @discardableResult
-    func insertAddressBlock() -> StringNode {
-        let addressNode = StringNode(name: "Address", position: .init(x: 380, y: 120))
+    func insertAddressBlock() -> AddressNode {
+        let addressNode = AddressNode(name: "Address", position: .init(x: 480, y: 120))
         tutorialManager.createWalletPatch.nodes.append(addressNode)
                             
         tutorialManager.createWalletPatch.nodeToShow = addressNode

@@ -34,9 +34,17 @@ let package = Package(
             ]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/Sajjon/EllipticCurveKit.git", "1.0.0"..<"2.0.0"),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", "1.0.0"..<"2.0.0")
+    ],
     targets: [
         .executableTarget(
             name: "AppModule",
+            dependencies: [
+                .product(name: "EllipticCurveKit", package: "ellipticcurvekit"),
+                .product(name: "CryptoSwift", package: "cryptoswift")
+            ],
             path: ".",
             swiftSettings: [
                 .enableUpcomingFeature("BareSlashRegexLiterals")
