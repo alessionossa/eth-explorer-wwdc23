@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import UniformTypeIdentifiers
 
 public class PrivateKeyNode: BaseNode {
     
@@ -14,20 +15,27 @@ public class PrivateKeyNode: BaseNode {
         @ObservedObject var node: PrivateKeyNode
         
         var stringKeyRepresentation: String? {
-            guard let hexString = node.valueUpdate?.value?.map({ String(format: "%02X", $0) }).joined() else { return nil }
+            guard let hexString =
+                    node.valueUpdate?.value?.map({ String($0, radix: 16) }).joined() else { return nil }
 
             return "0x" + hexString
         }
 
         var body: some View {
-            Text("\(stringKeyRepresentation ?? "")")
-                .font(.callout.monospaced())
-                .lineLimit(nil)
-                .frame(width: 150)
+            VStack {
+                Text("\(stringKeyRepresentation ?? "")")
+                    .font(.callout.monospaced())
+                    .lineLimit(nil)
+                    .frame(width: 150)
+                
+                Button("Copy") {
+                    UIPasteboard.general.string = stringKeyRepresentation
+                }
+            }
+            
         }
     }
 
-//    @Published var value: Int? = nil
     @Published var valueUpdate: ValueUpdate<[UInt8]>? = nil
     
     private var cancellables = Set<AnyCancellable>()
@@ -41,7 +49,6 @@ public class PrivateKeyNode: BaseNode {
         
         outputs = [
             Port(name: "Private Key", type: .output, valueType: [UInt8].self, parentNodeId: id),
-            Port(name: "Address", type: .output, valueType: [UInt8].self, parentNodeId: id)
         ]
         
         titleBarColor = .brown
@@ -62,16 +69,6 @@ public class PrivateKeyNode: BaseNode {
         
         if let intOutput = outputs[0] as? Port<[UInt8]> {
             $valueUpdate.assign(to: &intOutput.$valueUpdate)
-        }
-        
-        if let _ = outputs[1] as? Port<String> {
-            $valueUpdate.sink { newValueUpdate in
-                guard let newValueUpdateEntropy = newValueUpdate?.value,
-                        let _ = try? Mnemonic(entropy: newValueUpdateEntropy)
-                else { return }
-                
-                // Generate Ethereum Address
-            }.store(in: &cancellables)
         }
     }
 }
