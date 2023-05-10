@@ -35,7 +35,7 @@ public class StringNode: BaseNode {
             Port(name: "Value", type: .output, valueType: String.self, parentNodeId: id)
         ]
         
-        titleBarColor = .brown
+        titleBarColor = Color(UIColor.systemTeal)
         
         middleView = AnyView(StringMiddleView(node: self))
         

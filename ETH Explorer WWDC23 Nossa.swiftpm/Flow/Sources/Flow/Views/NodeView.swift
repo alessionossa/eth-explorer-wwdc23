@@ -45,7 +45,7 @@ struct NodeView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
-                .background(Color.blue)
+                .background(node.titleBarColor)
                 .gesture(dragGesture)
                 
                 HStack(alignment: .center, spacing: 8) {

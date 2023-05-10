@@ -31,7 +31,7 @@ public class TriggerButtonNode: BaseNode {
             Port(name: "Trigger", type: .output, valueType: Void.self, parentNodeId: id)
         ]
         
-        titleBarColor = .brown
+        titleBarColor = Color(UIColor.systemOrange)
         
         middleView = AnyView(TriggerMiddleView(node: self))
         

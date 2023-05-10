@@ -37,7 +37,7 @@ public class MnemonicNode: BaseNode {
             Port(name: "Phrase", type: .output, valueType: [String].self, parentNodeId: id)
         ]
         
-        titleBarColor = .brown
+        titleBarColor = Color(UIColor.systemPink)
         
         middleView = AnyView(MnemonicMiddleView(node: self))
         
