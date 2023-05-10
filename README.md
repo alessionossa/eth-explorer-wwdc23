@@ -12,4 +12,4 @@ The entire user interface is crafted with SwiftUI, while the data flow between n
 This Playground app was developed as a submission for the Swift Student Challenge at WWDC23.
 
 ## Demo
-https://youtu.be/NcZ4TyxE-H4
+https://youtu.be/cl2-H2dGYus
